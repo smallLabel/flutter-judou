@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_judou/discovery/widget/discovery_widget.dart';
+import 'package:flutter_judou/discovery/widget/subscribe_widget.dart';
 import 'package:flutter_judou/utils/color_utils.dart';
 
 class DiscoveryPage extends StatefulWidget {
@@ -7,7 +9,8 @@ class DiscoveryPage extends StatefulWidget {
   _DiscoveryPageState createState() => _DiscoveryPageState();
 }
 
-class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _DiscoveryPageState extends State<DiscoveryPage> 
+  with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _topTabController;
   List<Tab> tabs = [Tab(text: '订阅'), Tab(text: '发现'), Tab(text: '推荐'),];
 
@@ -42,15 +45,15 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
           labelPadding: EdgeInsets.symmetric(horizontal: 4),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search))
+          IconButton(icon: Icon(Icons.search), onPressed: () {},)
         ],
         
       ),
       body: TabBarView(
         controller: _topTabController,
         children: <Widget>[
-          Text('text'),
-          Text('text'),
+          SubscribeWidget(),
+          Discovery(),
           Text('text')
         ],
       ),

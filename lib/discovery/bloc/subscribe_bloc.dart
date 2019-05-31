@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../../network/network.dart';
 import '../../index/models/judou_model.dart';
 

@@ -5,6 +5,7 @@ import 'package:flutter_judou/discovery/models/topic_model.dart';
 import 'package:flutter_judou/discovery/widget/discovery_card.dart';
 import 'package:flutter_judou/index/models/judou_model.dart';
 import 'package:flutter_judou/index/models/tag_model.dart';
+import 'package:flutter_judou/utils/color_utils.dart';
 import 'package:flutter_judou/widgets/blank.dart';
 import 'package:flutter_judou/widgets/judou_cell.dart';
 import 'package:flutter_judou/widgets/loading.dart';
@@ -39,7 +40,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget>
     super.initState();
     _bloc = BlocProvider.of<DiscoveryBloc>(context);
     _scrollController = ScrollController();
-    _tabController = TabController();
+    _tabController = TabController(vsync: this, length: 9);
     _scrollController.addListener(() => {});
   }
 
@@ -68,6 +69,9 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget>
       }
     ).toList();
   }
+  
+  @override
+  bool get wantKeepAlive => true; 
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,32 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget>
           color: Colors.white,
           child: Column(
             children: <Widget>[
-              // TODO
+              _DiscoveryTopicsWidget(
+                topics: snapshot.data['topics'],
+              ),
+              Blank(height: 5,),
+              Container(
+                height: 35,
+                child: TabBar(
+                  isScrollable: true,
+                  controller: _tabController,
+                  tabs: _tagWidgets(snapshot.data['tags']),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorColor: Colors.white,
+                  unselectedLabelColor: ColorUtils.textGreyColor,
+                  labelColor: ColorUtils.textPrimaryColor,
+                  labelStyle: TextStyle(
+                    fontSize: 14
+                  ),     
+                ),
+              ),
+              Blank(height: 1,),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: _tabBarViews(snapshot.data['tags'], snapshot.data['tagListData']),
+                ),
+              )
             ],
           ),
         );
@@ -91,8 +120,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget>
     );
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  
     
 }
 

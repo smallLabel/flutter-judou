@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_judou/index/models/judou_model.dart';
 import 'package:flutter_judou/index/pages/detail_page.dart';
-import 'package:flutter_judou/utils/ui_uitils.dart';
 import 'package:flutter_judou/widgets/user_info_tile.dart';
 import '../utils/color_utils.dart';
 import './image_preview.dart';
