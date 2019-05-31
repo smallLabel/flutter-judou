@@ -1,6 +1,8 @@
 import 'package:flutter_judou/bloc_provider.dart';
 import 'package:flutter_judou/discovery/bloc/discovery_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_judou/discovery/models/topic_model.dart';
+import 'package:flutter_judou/discovery/widget/discovery_card.dart';
 import 'package:flutter_judou/index/models/judou_model.dart';
 import 'package:flutter_judou/index/models/tag_model.dart';
 import 'package:flutter_judou/widgets/blank.dart';
@@ -95,12 +97,32 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget>
 }
 
 class _DiscoveryTopicsWidget extends StatelessWidget {
-  const _DiscoveryTopicsWidget({Key key}) : super(key: key);
+  const _DiscoveryTopicsWidget({Key key, this.topics}) : super(key: key);
+
+  final List<TopicModel> topics;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: child,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      height: 100,
+      color: Colors.white,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: topics.length,
+        itemBuilder: (context, index) {
+          TopicModel model = topics[index];
+          return DiscoveryCard(
+            title: model.name,
+            isLeading: index == 0 ? true : false,
+            isTrailing: index == topics.length - 1 ? true : false,
+            imageUrl: model.cover,
+            height: 70,
+            width: 100,
+            id: model.uuid,
+          );
+        },
+      ),
     );
   }
 }
